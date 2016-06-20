@@ -32,7 +32,7 @@
 	<header id="header" class="inner">
 		<a href="/" class="profilepic">
 			
-			<img lazy-src="null" class="js-avatar">
+			<img lazy-src="https://avatars3.githubusercontent.com/u/13076839?v=3&amp;s=460" class="js-avatar">
 			
 		</a>
 
@@ -103,7 +103,7 @@
 					        
 								<a class="weibo" target="_blank" href="#" title="weibo">weibo</a>
 					        
-								<a class="mail" target="_blank" href="#" title="mail">mail</a>
+								<a class="mail" target="_blank" href="/jh235@qq.com" title="mail">mail</a>
 					        
 								<a class="facebook" target="_blank" href="#" title="facebook">facebook</a>
 					        
@@ -162,7 +162,7 @@
 		<header id="header" class="inner">
 			<div class="profilepic">
 			
-				<img lazy-src="null" class="js-avatar">
+				<img lazy-src="https://avatars3.githubusercontent.com/u/13076839?v=3&amp;s=460" class="js-avatar">
 			
 			</div>
 			<hgroup>
@@ -186,7 +186,7 @@
 			        
 						<a class="weibo" target="_blank" href="#" title="weibo">weibo</a>
 			        
-						<a class="mail" target="_blank" href="#" title="mail">mail</a>
+						<a class="mail" target="_blank" href="/jh235@qq.com" title="mail">mail</a>
 			        
 						<a class="facebook" target="_blank" href="#" title="facebook">facebook</a>
 			        
@@ -197,6 +197,89 @@
 </nav>
 
       <div class="body-wrap">
+  
+    <article id="post-保存Gif图到相册" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/06/20/保存Gif图到相册/" class="article-date">
+  	<time datetime="2016-06-20T08:33:23.000Z" itemprop="datePublished">2016-06-20</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/06/20/保存Gif图到相册/">保存gif图到相册和从相册获取gif图片</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>最近项目中用需要实现保存Gif 图到本地并可以分享.自己研究几天做出了,现在和大家分享一下吧</p>
+<p>就是一个简单的demo,希望能够给有需要的人有一点帮助吧。写的不好,勿喷。</p>
+<p>主要思路来自 <a href="https://github.com/ibireme" target="_blank" rel="external">ibireme</a> 大神的博客  <a href="http://blog.ibireme.com/2015/11/02/ios_image_tips/" target="_blank" rel="external">iOS 处理图片的一些小 Tip</a></p>
+<h2 id="如何把-GIF-动图保存到相册？"><a href="#如何把-GIF-动图保存到相册？" class="headerlink" title="如何把 GIF 动图保存到相册？"></a>如何把 GIF 动图保存到相册？<br></h2><p>iOS 的相册是支持保存 GIF 和 APNG 动图的，只是不能直接播放。用 [ALAssetsLibrary writeImageDataToSavedPhotosAlbum:metadata:completionBlock] 可以直接把 APNG、GIF 的数据写入相册。如果图省事直接用 UIImageWriteToSavedPhotosAlbum() 写相册，那么图像会被强制转码为 PNG。</p>
+<p>我这里用的是 ibireme的 <a href="https://github.com/ibireme/YYImage" target="_blank" rel="external">YYImage</a><br>其实你项目中使用的是<a href="https://github.com/rs/SDWebImage" target="_blank" rel="external">SDWebImage</a>  直接使用 imageView sd_setImageWithURL: 即可显示Gif图, <a href="https://github.com/rs/SDWebImage/blob/master/SDWebImage/UIImage%2BGIF.m" target="_blank" rel="external">SDWebImage</a>已经写了 UIImage+GIF分类</p>
+<h3 id="保存图片"><a href="#保存图片" class="headerlink" title="保存图片"></a>保存图片</h3><pre><code>NSData *data = [NSData dataWithContentsOfURL:[NSURL URLWithString:@&quot;http://up.toumiao.net/uploads/allimg/201509/29-090547_613.gif&quot;]];
+
+//把Image以data保存到相册
+ALAssetsLibrary *assets = [[ALAssetsLibrary alloc]init];
+[assets writeImageDataToSavedPhotosAlbum:data metadata:nil completionBlock:^(NSURL *assetURL, NSError *error) {
+
+}];
+</code></pre><h3 id="从相册获取Gif图"><a href="#从相册获取Gif图" class="headerlink" title="从相册获取Gif图"></a>从相册获取Gif图</h3><pre><code>UIImagePickerController *pickCtrl = [[UIImagePickerController alloc]init];
+//设置资源类型
+pickCtrl.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+pickCtrl.delegate = self;
+
+[self presentViewController:pickCtrl animated:YES completion:nil];
+</code></pre><h3 id="获取数据"><a href="#获取数据" class="headerlink" title="获取数据"></a>获取数据</h3><pre><code>NSURL *imageURL = [info valueForKey:UIImagePickerControllerReferenceURL];
+__weak typeof(self) weakSelf = self;
+ALAssetsLibrary* assetslibrary = [[ALAssetsLibrary alloc] init];
+[assetslibrary assetForURL:imageURL resultBlock:^(ALAsset *asset) {
+    ALAssetRepresentation *rep = [asset defaultRepresentation];
+    Byte *buffer = (Byte*)malloc((unsigned long)rep.size);
+    NSUInteger buffered = [rep getBytes:buffer fromOffset:0.0 length:((unsigned long)rep.size) error:nil];
+    NSData *data = [NSData dataWithBytesNoCopy:buffer length:buffered freeWhenDone:YES];
+    //********  获取到照片的data,在这 里进行上传等操作
+    YYImage *image = [YYImage imageWithData:data];
+    weakSelf.imageView.image = image;
+
+} failureBlock:nil];
+</code></pre>
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
   
     <article id="post-My-New-Post" class="article article-type-post" itemscope itemprop="blogPost">
   
