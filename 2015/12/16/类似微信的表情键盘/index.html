@@ -4,17 +4,36 @@
   <meta charset="utf-8">
   
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
-  <title>低头式高调</title>
+  <title>EmotionKeyboard | 低头式高调</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description">
-<meta property="og:type" content="website">
-<meta property="og:title" content="低头式高调">
-<meta property="og:url" content="http://yoursite.com/index.html">
+  <meta name="description" content="===
+之前项目中的表情键盘,现在和大家分享一下吧,写的不好,不喜勿喷!
+项目地址:EmotionKeyboard
+效果图
+直接把文件中的EmotionKeyboard文件添加到项目中即可,本项目依赖 MJExtension,需要注意的是项目资源文件直接 Create folder reference 形式引入.
+使用方法提供4种创建方法1234567EmotionKeyboard *emotio">
+<meta property="og:type" content="article">
+<meta property="og:title" content="EmotionKeyboard">
+<meta property="og:url" content="http://yoursite.com/2015/12/16/类似微信的表情键盘/index.html">
 <meta property="og:site_name" content="低头式高调">
-<meta property="og:description">
+<meta property="og:description" content="===
+之前项目中的表情键盘,现在和大家分享一下吧,写的不好,不喜勿喷!
+项目地址:EmotionKeyboard
+效果图
+直接把文件中的EmotionKeyboard文件添加到项目中即可,本项目依赖 MJExtension,需要注意的是项目资源文件直接 Create folder reference 形式引入.
+使用方法提供4种创建方法1234567EmotionKeyboard *emotio">
+<meta property="og:image" content="https://github.com/jh235/EmotionKeyboard/blob/master/1.gif">
+<meta property="og:image" content="https://github.com/jh235/EmotionKeyboard/blob/master/2.png">
+<meta property="og:updated_time" content="2016-06-21T09:34:03.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="低头式高调">
-<meta name="twitter:description">
+<meta name="twitter:title" content="EmotionKeyboard">
+<meta name="twitter:description" content="===
+之前项目中的表情键盘,现在和大家分享一下吧,写的不好,不喜勿喷!
+项目地址:EmotionKeyboard
+效果图
+直接把文件中的EmotionKeyboard文件添加到项目中即可,本项目依赖 MJExtension,需要注意的是项目资源文件直接 Create folder reference 形式引入.
+使用方法提供4种创建方法1234567EmotionKeyboard *emotio">
+<meta name="twitter:image" content="https://github.com/jh235/EmotionKeyboard/blob/master/1.gif">
   
     <link rel="alternative" href="/atom.xml" title="低头式高调" type="application/atom+xml">
   
@@ -196,205 +215,7 @@
 	</div>
 </nav>
 
-      <div class="body-wrap">
-  
-    <article id="post-保存Gif图到相册" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2016/06/20/保存Gif图到相册/" class="article-date">
-  	<time datetime="2016-06-20T08:33:23.000Z" itemprop="datePublished">2016-06-20</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/06/20/保存Gif图到相册/">保存gif图到相册和从相册获取gif图片</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>最近项目中用需要实现保存Gif 图到本地并可以分享.自己研究几天做出了,现在和大家分享一下吧</p>
-<p>就是一个简单的demo,希望能够给有需要的人有一点帮助吧。写的不好,勿喷。</p>
-<p>主要思路来自 <a href="https://github.com/ibireme" target="_blank" rel="external">ibireme</a> 大神的博客  <a href="http://blog.ibireme.com/2015/11/02/ios_image_tips/" target="_blank" rel="external">iOS 处理图片的一些小 Tip</a></p>
-<h2 id="如何把-GIF-动图保存到相册？"><a href="#如何把-GIF-动图保存到相册？" class="headerlink" title="如何把 GIF 动图保存到相册？"></a>如何把 GIF 动图保存到相册？<br></h2><p>iOS 的相册是支持保存 GIF 和 APNG 动图的，只是不能直接播放。用 [ALAssetsLibrary writeImageDataToSavedPhotosAlbum:metadata:completionBlock] 可以直接把 APNG、GIF 的数据写入相册。如果图省事直接用 UIImageWriteToSavedPhotosAlbum() 写相册，那么图像会被强制转码为 PNG。</p>
-<p>我这里用的是 ibireme的 <a href="https://github.com/ibireme/YYImage" target="_blank" rel="external">YYImage</a><br>其实你项目中使用的是<a href="https://github.com/rs/SDWebImage" target="_blank" rel="external">SDWebImage</a>  直接使用 imageView sd_setImageWithURL: 即可显示Gif图, <a href="https://github.com/rs/SDWebImage/blob/master/SDWebImage/UIImage%2BGIF.m" target="_blank" rel="external">SDWebImage</a>已经写了 UIImage+GIF分类</p>
-<h3 id="保存图片"><a href="#保存图片" class="headerlink" title="保存图片"></a>保存图片</h3><pre><code>NSData *data = [NSData dataWithContentsOfURL:[NSURL URLWithString:@&quot;http://up.toumiao.net/uploads/allimg/201509/29-090547_613.gif&quot;]];
-
-//把Image以data保存到相册
-ALAssetsLibrary *assets = [[ALAssetsLibrary alloc]init];
-[assets writeImageDataToSavedPhotosAlbum:data metadata:nil completionBlock:^(NSURL *assetURL, NSError *error) {
-
-}];
-</code></pre><h3 id="从相册获取Gif图"><a href="#从相册获取Gif图" class="headerlink" title="从相册获取Gif图"></a>从相册获取Gif图</h3><pre><code>UIImagePickerController *pickCtrl = [[UIImagePickerController alloc]init];
-//设置资源类型
-pickCtrl.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
-pickCtrl.delegate = self;
-
-[self presentViewController:pickCtrl animated:YES completion:nil];
-</code></pre><h3 id="获取数据"><a href="#获取数据" class="headerlink" title="获取数据"></a>获取数据</h3><pre><code>NSURL *imageURL = [info valueForKey:UIImagePickerControllerReferenceURL];
-__weak typeof(self) weakSelf = self;
-ALAssetsLibrary* assetslibrary = [[ALAssetsLibrary alloc] init];
-[assetslibrary assetForURL:imageURL resultBlock:^(ALAsset *asset) {
-    ALAssetRepresentation *rep = [asset defaultRepresentation];
-    Byte *buffer = (Byte*)malloc((unsigned long)rep.size);
-    NSUInteger buffered = [rep getBytes:buffer fromOffset:0.0 length:((unsigned long)rep.size) error:nil];
-    NSData *data = [NSData dataWithBytesNoCopy:buffer length:buffered freeWhenDone:YES];
-    //********  获取到照片的data,在这 里进行上传等操作
-    YYImage *image = [YYImage imageWithData:data];
-    weakSelf.imageView.image = image;
-
-} failureBlock:nil];
-</code></pre>
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-My-New-Post" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2016/06/20/My-New-Post/" class="article-date">
-  	<time datetime="2016-06-20T07:50:00.000Z" itemprop="datePublished">2016-06-20</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/06/20/My-New-Post/">My New Post</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-hello-world" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2016/06/20/hello-world/" class="article-date">
-  	<time datetime="2016-06-20T07:22:51.000Z" itemprop="datePublished">2016-06-20</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/06/20/hello-world/">Hello World</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
-
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-类似微信的表情键盘" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-类似微信的表情键盘" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
       <a href="/2015/12/16/类似微信的表情键盘/" class="article-date">
@@ -410,12 +231,19 @@ ALAssetsLibrary* assetslibrary = [[ALAssetsLibrary alloc] init];
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/12/16/类似微信的表情键盘/">EmotionKeyboard</a>
+    <h1 class="article-title" itemprop="name">
+      EmotionKeyboard
     </h1>
   
 
       </header>
+      
+      <div class="article-info article-info-post">
+        
+        
+
+        <div class="clearfix"></div>
+      </div>
       
     
     <div class="article-entry" itemprop="articleBody">
@@ -442,29 +270,72 @@ ALAssetsLibrary* assetslibrary = [[ALAssetsLibrary alloc] init];
       
     </div>
     
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-    
   </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2016/06/20/hello-world/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          Hello World
+        
+      </div>
+    </a>
+  
+  
+</nav>
+
   
 </article>
 
 
+<div class="share_jia">
+	<!-- JiaThis Button BEGIN -->
+	<div class="jiathis_style">
+		<span class="jiathis_txt">Share to: &nbsp; </span>
+		<a class="jiathis_button_facebook"></a> 
+    <a class="jiathis_button_twitter"></a>
+    <a class="jiathis_button_plus"></a> 
+    <a class="jiathis_button_tsina"></a>
+		<a class="jiathis_button_cqq"></a>
+		<a class="jiathis_button_douban"></a>
+		<a class="jiathis_button_weixin"></a>
+		<a class="jiathis_button_tumblr"></a>
+    <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+	</div>
+	<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1405949716054953" charset="utf-8"></script>
+	<!-- JiaThis Button END -->
+</div>
 
 
 
 
 
 
+<div class="duoshuo">
+	<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="类似微信的表情键盘" data-title="EmotionKeyboard" data-url="http://yoursite.com/2015/12/16/类似微信的表情键盘/"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"true"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- 多说公共JS代码 end -->
+</div>
 
-  
-  
+
+
+
 </div>
       <footer id="footer">
   <div class="outer">
@@ -488,8 +359,8 @@ ALAssetsLibrary* assetslibrary = [[ALAssetsLibrary alloc] init];
 		fancybox: true,
 		mathjax: true,
 		animate: true,
-		isHome: true,
-		isPost: false,
+		isHome: false,
+		isPost: true,
 		isArchive: false,
 		isTag: false,
 		isCategory: false,
